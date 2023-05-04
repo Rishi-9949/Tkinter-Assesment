@@ -11,5 +11,6 @@ window.geometry("800x800")
 window.minsize(800, 800)
 window.minsize(800, 800)
 
+window.config(bg="#F9F9E0")
 
 window.mainloop()
