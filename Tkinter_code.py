@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 from tkinter import messagebox
+import json
 
 
 window = tk.Tk()
@@ -20,7 +21,7 @@ window.minsize(700, 700)
 window.maxsize(700, 700)
 
 #giving the window an background colour 
-window.config(bg="#F9F9E0")
+window.config(bg="#FFF1DC")
 
 
 
@@ -75,7 +76,7 @@ num_item_entry.pack(anchor='w')
 
 
 # Define functions for adding, updating, and deleting camp information
-def add_data_info():
+def submit_data():
     global name, receipt, item, num_item
 
     # Get input from the user
@@ -111,6 +112,19 @@ def add_data_info():
     item_entry.delete(0, tk.END)
     num_item_entry.delete(0, tk.END)
 
+    with open("data.json", "w") as file:
+        customer_data = json.load(file)
+        customer_data['Customer Name'].append(name)
+        customer_data['Receipt'].append(receipt)
+        customer_data['Item hired'].append(item)
+        customer_data['Item hired amount'].append(num_item)
+
+    with open('data.json', 'w') as file:
+        json.dump(customer_data, file)
+
+
+
+
     # Update the display
     update_display()
 
@@ -125,7 +139,10 @@ def update_display():
 
 
     for name, receipt, item, num_item in items_data:
-        listbox.insert(tk.END,f"Full Name: {name}   Receipt Number: {receipt}    Item hired: {item}    Number of Items Hired: {num_item}")
+        listbox.insert(
+            tk.END,
+            f"Full Name: {name}   Receipt Number: {receipt}    Item hired: {item}    Number of Items Hired: {num_item}"
+            )
 
 
 
@@ -184,18 +201,25 @@ def delete_row():
     return
 
 
-# Buttons 
+
+# Create the listbox
+listbox = tk.Listbox(window)
+listbox.pack(anchor="w", ipadx=400)
+
+
+
+#Buttons
 #Submit
-submit_button = tk.Button(window, text= "Update", bg='yellow', command=add_data_info)
-submit_button.pack(anchor='e')
+submit_button = tk.Button(window, text= "Submit", bg='green', command=submit_data)
+submit_button.place(x=160,y=160)
 
 #Update
-update_button = tk.Button(window, text= "Submit", bg='green', command=update_data)
-update_button.pack(anchor='e')
+update_button = tk.Button(window, text= "Update", bg='yellow', command=update_data)
+update_button.pack(anchor='w')
 
 #Delete 
 delete_button = tk.Button(window, text= "Delete Row", bg='orange', command=delete_row)
-delete_button.pack(anchor='e')
+delete_button.place(x=630,y=350)
 
 
 
@@ -233,13 +257,6 @@ img_label.place(x=595,y=23)
 
 
 
-# Create the listbox
-listbox = tk.Listbox(window)
-listbox.pack(anchor="w", ipadx=400)
-
-
-
-
 
 
 
@@ -248,12 +265,12 @@ error_label = tk.Label(window, fg="red")
 error_label.pack(anchor="w")
 
 # Create a line and draw it on the canvas
-my_rect_2 = tk.Canvas(window, width=700, height=450)
-my_rect_2.pack(anchor='s')
+my_rect_2 = tk.Canvas(window, width=700, height=600)
+my_rect_2.place(x=0,y=450)
 
 # Shapping my line and filling it with colour
 rect_2 = my_rect_2.create_rectangle(800, 800, 0, 450, fill="#004AAD")
-upper_line = my_rect_2.create_rectangle(700, 440, 0, 450, fill="#000000")
+upper_line = my_rect_2.create_rectangle(700, 440, 0, 450, fill="black")
 
 
 window.mainloop()
