@@ -38,8 +38,7 @@ my_rect.pack()
 rect = my_rect.create_rectangle(800, 0, 0, 20, fill="#004AAD")
 bottom_line = my_rect.create_rectangle(800, 20, 0, 17, fill="#000000")
 
-Jph = tk.Label(window, text=("""Julie’s Party 
-Hire'"""), bg="#FAF4EF", font=("Garamond", 20))
+Jph = tk.Label(window, text=("Julie’s Party  \n Hire"), bg="#FAF4EF", font=("Garamond", 20))
 Jph.place(x=570, y=120)
 
 # Labels and Entry Boxes
@@ -83,7 +82,7 @@ def submit_data():
         receipt = int(receipt)
         num_item = int(num_item)
     except ValueError:
-        error_label.config(text="Please Enter Valid Information!!. (Only Numbers are valid )")
+        error_label.config(text="Please Enter Valid Information!!. (Enter Numbers only for Receipt Number and Number of Items Hired )")
         return
 
     if num_item < Min_num_of_items or num_item > Max_num_of_items:
@@ -146,18 +145,55 @@ def update_data():
     item_entry.insert(0, item_data[3])
     num_item_entry.insert(0, item_data[4])
 
+     # Get the index of the selected row
+    index = trv.index(selected_item)
+     # Open the JSON file
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+
+    # Delete the corresponding data from the lists
+    for key in data:
+        data[key].pop(index)
+
+    # Update the JSON file with the modified data
+    with open('data.json', 'w') as file:
+        json.dump(data, file)
+
+    # Delete the selected item from the Treeview
+    trv.delete(selected_item)
+
 
 def delete_row():
     selected_item = trv.focus()
 
     if not selected_item:
-        error_label.config(text="Please select a row to delete")
+        error_label.config(text="Please select an item to delete")
         return
-
-    warning = messagebox.askquestion('Warning', 'Do you want to continue? (If you proceed, all data will be lost)')
+    
+    warning = messagebox.askquestion("Delete Rowe", 'Are you sure you want to delete this row? \n' "(Once Deleted you won't be able to restore it)", icon='warning')
 
     if warning == "yes":
+        # Get the index of the selected row
+        index = trv.index(selected_item)
+
+        # Open the JSON file
+        with open('data.json', 'r') as file:
+            data = json.load(file)
+
+        # Delete the corresponding data from the lists
+        for key in data:
+            data[key].pop(index)
+
+        # Update the JSON file with the modified data
+        with open('data.json', 'w') as file:
+            json.dump(data, file)
+
+        # Delete the selected item from the Treeview
         trv.delete(selected_item)
+
+        # Update the display
+        update_display()
+
 
 
 trv = ttk.Treeview(window, columns=(1, 2, 3, 4, 5), show="headings", height=50)
@@ -213,7 +249,7 @@ delete_button.place(x=630,y=350)
 
 
 def msg1():
-    warning = messagebox.askquestion('Warning', 'Do you want to continue? (If you proceed to continue all data will be lost)')
+    warning = messagebox.askquestion('Exit Application', 'Are you sure you want to exit the application?',icon='warning')
     if warning == "yes":
         window.destroy()
 
@@ -243,12 +279,13 @@ img_label.place(x=595,y=23)
 
 
 
+# Create a Frame for border
+border_frame = tk.Frame(window, background="red", borderwidth=2, highlightbackground="red",)
+border_frame.place(x=160, y=130)
 
-
-
-# Create the error label
-error_label = tk.Label(window, fg="red")
-error_label.pack(anchor="w")
+# Create the error label inside the border_frame
+error_label = tk.Label(border_frame, text="There are no errors", fg="red")
+error_label.pack(padx=0, pady=0)
 
 
 
