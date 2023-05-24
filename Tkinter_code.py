@@ -75,38 +75,38 @@ num_item_entry.insert(0, "eg : 35")
 
 
 def clear_name_entry(event):
-    name_entry.configure(state=tk.NORMAL)
-    name_entry.delete(0, tk.END)
-    name_entry.unbind('<Button-1>', clear_name_entry)
+    if name_entry.get().strip() == "eg : David":
+        name_entry.delete(0, tk.END)
+        name_entry.configure(fg="black")
+        name_entry.bind('<Button-1>', clear_name_entry)
 
 
 def clear_receipt_entry(event):
-    receipt_entry.configure(state=tk.NORMAL)
-    receipt_entry.delete(0, tk.END)
-    receipt_entry.unbind('<Button-1>', clear_receipt_entry)
+    if receipt_entry.get().strip() == "eg : 1882839":
+        receipt_entry.delete(0, tk.END)
+        receipt_entry.configure(fg="black")
+        receipt_entry.bind('<Button-1>', clear_receipt_entry)
 
 
 def clear_item_entry(event):
-    item_entry.configure(state=tk.NORMAL)
-    item_entry.delete(0, tk.END)
-    item_entry.unbind('<Button-1>', clear_item_entry)
+    if item_entry.get().strip() == "eg : Plates":
+        item_entry.delete(0, tk.END)
+        item_entry.configure(fg="black")
+        item_entry.bind('<Button-1>', clear_item_entry)
 
 
 def clear_num_item_entry(event):
-    num_item_entry.configure(state=tk.NORMAL)
-    num_item_entry.delete(0, tk.END)
-    num_item_entry.unbind('<Button-1>', clear_num_item_entry)
+    if num_item_entry.get().strip() == "eg : 35":
+        num_item_entry.delete(0, tk.END)
+        num_item_entry.configure(fg="black")
+        num_item_entry.bind('<Button-1>', clear_num_item_entry)
 
+# ...
 
-# if name_entry.get() == "eg : David":
-#     name_entry.configure(fg="grey")
-
-# elif name_entry.get() == "":
-#         name_entry.configure(fg="black")
-#         num_item_entry.unbind('<Button-1>', clear_num_item_entry)
-#         print(22)
-
-
+clicked = name_entry.bind('<Button-1>', clear_name_entry)
+clicked = receipt_entry.bind('<Button-1>', clear_receipt_entry)
+clicked = item_entry.bind('<Button-1>', clear_item_entry)
+clicked = num_item_entry.bind('<Button-1>', clear_num_item_entry)
 
 
 
@@ -158,11 +158,11 @@ def submit_data():
     item_entry.delete(0, tk.END)
     num_item_entry.delete(0, tk.END)
 
-    messagebox.showinfo('Submitted', 'Your data has successfully submitted.')
 
     # Update the display
     update_display()
 
+    messagebox.showinfo('Submitted', 'Your data has successfully submitted.')
 
 # Set Display function
 def update_display():
