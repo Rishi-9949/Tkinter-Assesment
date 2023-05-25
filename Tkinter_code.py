@@ -1,3 +1,4 @@
+ # Importing All Neccecary Libraries
 import tkinter as tk
 from PIL import ImageTk, Image
 from tkinter import ttk
@@ -38,75 +39,87 @@ my_rect.pack()
 rect = my_rect.create_rectangle(800, 0, 0, 20, fill="#004AAD")
 bottom_line = my_rect.create_rectangle(800, 20, 0, 17, fill="#000000")
 
-Jph = tk.Label(
-    window, text=("Julie’s Party  \n Hire"), bg="#FAF4EF", font=("Garamond", 20)
-)
+# Displaying GUI Tittle in the tkinter window 
+Jph = tk.Label(window, text=("Julie’s Party  \n Hire"), bg="#FAF4EF", font=("Garamond", 20))
+
+# Locating the title in the window 
 Jph.place(x=570, y=120)
 
-# Labels and Entry Boxes
-name_label = tk.Label(window, text="Full Name:", background="#FFD18B")
-name_label.pack(anchor="w")
-name_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
-name_entry.pack(anchor="w")
+#                            <----Labels and Entry Boxes---->
+name_label = tk.Label(window, text="Full Name:", background="#FFD18B") # Name Label
+name_label.pack(anchor="w") # Locating Name Label
 
-receipt_num_label = tk.Label(window, text="Receipt Number:", background="#FFD18B")
-receipt_num_label.pack(anchor="w")
-receipt_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
-receipt_entry.pack(anchor="w")
+name_entry = tk.Entry(window, border=1, relief="solid", fg="#929090") # Name Entry Box
+name_entry.pack(anchor="w") # Locating Name Entry Box
 
-item_label = tk.Label(window, text="Item Hired:", background="#FFD18B")
-item_label.pack(anchor="w")
-item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
-item_entry.pack(anchor="w")
+receipt_num_label = tk.Label(window, text="Receipt Number:", background="#FFD18B") # Receipt Label
+receipt_num_label.pack(anchor="w") # Locating Receipt Label 
 
-num_item_label = tk.Label(window, text="Number of items:", background="#FFD18B")
-num_item_label.pack(anchor="w")
-num_item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
-num_item_entry.pack(anchor="w")
+receipt_entry = tk.Entry(window, border=1, relief="solid", fg="#929090") # Receipt Entry Box 
+receipt_entry.pack(anchor="w") # Locating Receipt Entry Box 
 
+item_label = tk.Label(window, text="Item Hired:", background="#FFD18B") # Item Label 
+item_label.pack(anchor="w") # Locating Item Label
 
-name_entry.insert(0, "eg : David")
-receipt_entry.insert(0, "eg : 1882839")
-item_entry.insert(0, "eg : Plates")
-num_item_entry.insert(0, "eg : 35")
+item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090") # Item Entry Box
+item_entry.pack(anchor="w") # Locating Item Entry Box
+
+num_item_label = tk.Label(window, text="Number of items:", background="#FFD18B") # Label of Number of items Hired
+num_item_label.pack(anchor="w") # Location for Number of items Hired 
+
+num_item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090") # Number of items Hired Entry Box
+num_item_entry.pack(anchor="w") # Location for Number of items Hired Entry Box
 
 
+#                <--------Inserting Temporary Text in Entry Boxes------>
+name_entry.insert(0, "eg : David") # Inserting eg : David in name Entry Box
+receipt_entry.insert(0, "eg : 1882839") # Inserting eg : 1882839 in receipt Entry Box
+item_entry.insert(0, "eg : Plates") # Inserting eg : Plates in items Entry Box
+num_item_entry.insert(0, "eg : 35") # Inserting eg : 35 in number of items hired Entry Box
+
+
+
+#                       <---------- Def Functions------------->
+
+# Clearing name entry box
 def clear_name_entry(event):
     if name_entry.get().strip() == "eg : David":
-        name_entry.delete(0, tk.END)
+        name_entry.delete(0, tk.END) # Empting everything in the Name Entry Box 
         name_entry.configure(fg="black")
         name_entry.bind("<Button-1>", clear_name_entry)
 
-
+# Clearing Receipt Number entry box
 def clear_receipt_entry(event):
     if receipt_entry.get().strip() == "eg : 1882839":
-        receipt_entry.delete(0, tk.END)
+        receipt_entry.delete(0, tk.END) # Empting everything in the Receipt Entry Box 
         receipt_entry.configure(fg="black")
         receipt_entry.bind("<Button-1>", clear_receipt_entry)
 
-
+# Clearing Items Hired entry box
 def clear_item_entry(event):
     if item_entry.get().strip() == "eg : Plates":
-        item_entry.delete(0, tk.END)
+        item_entry.delete(0, tk.END) # Empting everything in the Items Hired Entry Box 
         item_entry.configure(fg="black")
         item_entry.bind("<Button-1>", clear_item_entry)
 
-
+# Clearing Number of items hired entry box
 def clear_num_item_entry(event):
     if num_item_entry.get().strip() == "eg : 35":
-        num_item_entry.delete(0, tk.END)
+        num_item_entry.delete(0, tk.END) # Empting everything in the Number of items hired Entry Box 
         num_item_entry.configure(fg="black")
         num_item_entry.bind("<Button-1>", clear_num_item_entry)
 
+# Message Box/function for Exiting the application
+def Exit():
+    warning = messagebox.askquestion(
+        "Exit Application",
+        "Are you sure you want to exit the application?",
+        icon="warning",
+    )
+    if warning == "yes":
+        window.destroy()
 
-# ...
-
-clicked = name_entry.bind("<Button-1>", clear_name_entry)
-clicked = receipt_entry.bind("<Button-1>", clear_receipt_entry)
-clicked = item_entry.bind("<Button-1>", clear_item_entry)
-clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
-
-
+# Set of comands when Submit Button is pressed
 def submit_data():
     global name, receipt, item, num_item
 
@@ -162,15 +175,16 @@ def submit_data():
         json.dump(customer_data, file)
 
     # Clear the input fields
-    name_entry.delete(0, tk.END)
-    receipt_entry.delete(0, tk.END)
-    item_entry.delete(0, tk.END)
-    num_item_entry.delete(0, tk.END)
+    name_entry.delete(0, tk.END) # Empting everything in the Name Entry Box 
+    receipt_entry.delete(0, tk.END) # Empting everything in the Receipt Entry Box
+    item_entry.delete(0, tk.END) # Empting everything in the Items Hired Entry Box 
+    num_item_entry.delete(0, tk.END) # Empting everything in the Number of items hired Entry Box 
+
 
     # Update the display
     update_display()
-
-    messagebox.showinfo("Submitted", "Your data has successfully submitted.")
+    # Message Box to inform the user that the data has successfully submitted 
+    messagebox.showinfo("Submitted", "Your data has successfully submitted.") 
 
 
 # Set Display function
@@ -203,16 +217,16 @@ def update_data():
 
     item_data = trv.item(selected_item)["values"]
 
-    name_entry.delete(0, tk.END)
-    receipt_entry.delete(0, tk.END)
-    item_entry.delete(0, tk.END)
-    num_item_entry.delete(0, tk.END)
+    name_entry.delete(0, tk.END) # Empting everything in the Name Entry Box 
+    receipt_entry.delete(0, tk.END) # Empting everything in the Receipt Entry Box 
+    item_entry.delete(0, tk.END) # Empting everything in the Items Hired Entry Box 
+    num_item_entry.delete(0, tk.END) # Empting everything in the Number of items hired Entry Box 
 
     # Categorizes data in the list heading
-    name_entry.insert(0, item_data[1])
-    receipt_entry.insert(0, item_data[2])
-    item_entry.insert(0, item_data[3])
-    num_item_entry.insert(0, item_data[4])
+    name_entry.insert(0, item_data[1]) # Inserting all valid data in the Name Entry Box 
+    receipt_entry.insert(0, item_data[2]) # Inserting all valid data in the Receipt Entry Box 
+    item_entry.insert(0, item_data[3]) # Inserting all valid data in the Items Hired Entry Box 
+    num_item_entry.insert(0, item_data[4])# Inserting all valid data in the Number of items hired Entry Box 
 
     # Get the index of the selected row
     index = trv.index(selected_item)
@@ -269,23 +283,31 @@ def delete_row():
         update_display()
 
 
+clicked = name_entry.bind("<Button-1>", clear_name_entry)
+clicked = receipt_entry.bind("<Button-1>", clear_receipt_entry)
+clicked = item_entry.bind("<Button-1>", clear_item_entry)
+clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
+
+
+#                      <-------Treeview Box -------->
 # List Heading
 trv = ttk.Treeview(window, columns=(1, 2, 3, 4, 5), show="headings", height=50)
 trv.pack(anchor="w", ipadx=400)
+
 # Input text in the heading
-trv.heading(1, text="ID", anchor="center")
-trv.heading(2, text="Full Name", anchor="center")
-trv.heading(3, text="Receipt Number", anchor="center")
-trv.heading(4, text="Item Hired", anchor="center")
-trv.heading(5, text="Number of Items Hired", anchor="center")
+trv.heading(1, text="ID", anchor="center") # Treeview Heading of ID
+trv.heading(2, text="Full Name", anchor="center") # Treeview Heading of Full Name
+trv.heading(3, text="Receipt Number", anchor="center") # Treeview Heading of Receipt Number
+trv.heading(4, text="Item Hired", anchor="center") # Treeview Heading of Item Hired
+trv.heading(5, text="Number of Items Hired", anchor="center") # Treeview Heading of Number of Items Hired
 
-trv.column("#1", anchor="w", width=40, stretch=True)
-trv.column("#2", anchor="w", width=150, stretch=False)
-trv.column("#3", anchor="w", width=150, stretch=False)
-trv.column("#4", anchor="w", width=150, stretch=False)
-trv.column("#5", anchor="w", width=150, stretch=False)
+trv.column("#1", anchor="w", width=40, stretch=True) # Labeling Treeview Heading in a column for ID
+trv.column("#2", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Name  
+trv.column("#3", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Receipt Number
+trv.column("#4", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Item Hired
+trv.column("#5", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Number of items hired 
 
-
+# Reading the Data.json file which helps displaying the previous saved data
 with open("data.json", "r") as file:
     data = json.load(file)
 
@@ -305,7 +327,7 @@ for i in range(len(data["Full Name:"])):
     )
 
 
-# Buttons
+#                                <---Buttons--->
 # Submit
 submit_button = tk.Button(window, text="Submit", bg="green", command=submit_data)
 submit_button.place(x=160, y=158)
@@ -318,26 +340,14 @@ update_button.place(x=250, y=158)
 delete_button = tk.Button(window, text="Delete Row", bg="orange", command=delete_row)
 delete_button.place(x=630, y=350)
 
-
-def msg1():
-    warning = messagebox.askquestion(
-        "Exit Application",
-        "Are you sure you want to exit the application?",
-        icon="warning",
-    )
-    if warning == "yes":
-        window.destroy()
-
-
 # Exit Program
-
-exit_button = tk.Button(window, text="Exit Program", bg="red", command=msg1)
+exit_button = tk.Button(window, text="Exit Program", bg="red", command=Exit)
 exit_button.place(x=630, y=400)
 
-
+#                              <------Image------>
+# Adding my Logo Image in my tkinter GUI
 img = Image.open("Logo.jpg")
 img = img.resize((100, 100))
-
 
 # Create ImageTk objects
 img_tk = ImageTk.PhotoImage(img)
@@ -349,23 +359,17 @@ img_label = tk.Label(window, image=img_tk)
 img_label.place(x=595, y=23)
 
 
-# Create a Frame for border
+# Create a Frame for border in the image 
 border_frame = tk.Frame(
     window,
     background="red",
     borderwidth=2,
-    highlightbackground="red",
-)
+    highlightbackground="red")
 border_frame.place(x=160, y=130)
 
-# Create the error label inside the border_frame
-error_label = tk.Label(border_frame, text="There are no errors", fg="red")
-error_label.pack(padx=0, pady=0)
+error_label = tk.Label(border_frame, text="There are no errors", fg="red") # Create the error label 
+error_label.pack(padx=0, pady=0) # Locating the error label 
 
 
-clicked = name_entry.bind("<Button-1>", clear_name_entry)
-clicked = receipt_entry.bind("<Button-1>", clear_receipt_entry)
-clicked = item_entry.bind("<Button-1>", clear_item_entry)
-clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
 
-window.mainloop()
+window.mainloop() # Lopping my window 
