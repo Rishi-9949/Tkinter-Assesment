@@ -46,29 +46,26 @@ Jph.place(x=570, y=120)
 # Labels and Entry Boxes
 name_label = tk.Label(window, text="Full Name:", background="#FFD18B")
 name_label.pack(anchor="w")
-name_entry = tk.Entry(window, border=1, relief="solid",fg='#929090')
+name_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
 name_entry.pack(anchor="w")
 
 receipt_num_label = tk.Label(window, text="Receipt Number:", background="#FFD18B")
 receipt_num_label.pack(anchor="w")
-receipt_entry = tk.Entry(window, border=1, relief="solid",fg='#929090')
+receipt_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
 receipt_entry.pack(anchor="w")
 
 item_label = tk.Label(window, text="Item Hired:", background="#FFD18B")
 item_label.pack(anchor="w")
-item_entry = tk.Entry(window, border=1, relief="solid",fg='#929090')
+item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
 item_entry.pack(anchor="w")
 
-num_item_label = tk.Label(window,text="Number of items:", background="#FFD18B")
+num_item_label = tk.Label(window, text="Number of items:", background="#FFD18B")
 num_item_label.pack(anchor="w")
-num_item_entry = tk.Entry(window, border=1, relief="solid",fg='#929090')
+num_item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090")
 num_item_entry.pack(anchor="w")
 
 
-
-
-
-name_entry.insert(0, "eg : David" )
+name_entry.insert(0, "eg : David")
 receipt_entry.insert(0, "eg : 1882839")
 item_entry.insert(0, "eg : Plates")
 num_item_entry.insert(0, "eg : 35")
@@ -78,38 +75,36 @@ def clear_name_entry(event):
     if name_entry.get().strip() == "eg : David":
         name_entry.delete(0, tk.END)
         name_entry.configure(fg="black")
-        name_entry.bind('<Button-1>', clear_name_entry)
+        name_entry.bind("<Button-1>", clear_name_entry)
 
 
 def clear_receipt_entry(event):
     if receipt_entry.get().strip() == "eg : 1882839":
         receipt_entry.delete(0, tk.END)
         receipt_entry.configure(fg="black")
-        receipt_entry.bind('<Button-1>', clear_receipt_entry)
+        receipt_entry.bind("<Button-1>", clear_receipt_entry)
 
 
 def clear_item_entry(event):
     if item_entry.get().strip() == "eg : Plates":
         item_entry.delete(0, tk.END)
         item_entry.configure(fg="black")
-        item_entry.bind('<Button-1>', clear_item_entry)
+        item_entry.bind("<Button-1>", clear_item_entry)
 
 
 def clear_num_item_entry(event):
     if num_item_entry.get().strip() == "eg : 35":
         num_item_entry.delete(0, tk.END)
         num_item_entry.configure(fg="black")
-        num_item_entry.bind('<Button-1>', clear_num_item_entry)
+        num_item_entry.bind("<Button-1>", clear_num_item_entry)
+
 
 # ...
 
-clicked = name_entry.bind('<Button-1>', clear_name_entry)
-clicked = receipt_entry.bind('<Button-1>', clear_receipt_entry)
-clicked = item_entry.bind('<Button-1>', clear_item_entry)
-clicked = num_item_entry.bind('<Button-1>', clear_num_item_entry)
-
-
-
+clicked = name_entry.bind("<Button-1>", clear_name_entry)
+clicked = receipt_entry.bind("<Button-1>", clear_receipt_entry)
+clicked = item_entry.bind("<Button-1>", clear_item_entry)
+clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
 
 
 def submit_data():
@@ -121,6 +116,20 @@ def submit_data():
     item = item_entry.get().strip()
     num_item = num_item_entry.get().strip()
 
+    # Check if any input fields are same as their temporary text
+    if name_entry.get() == "eg : David":
+        error_label.config(text="Please fill in all input field")
+        return
+    elif receipt_entry.get() == "eg : 1882839":
+        error_label.config(text="Please fill in all input field")
+        return
+    elif item_entry.get() == "eg : Plates":
+        error_label.config(text="Please fill in all input field")
+        return
+    elif num_item_entry.get() == "eg : 35":
+        error_label.config(text="Please fill in all input field")
+        return
+    
     # Check if any input fields are empty
     if not all([name, receipt, item, num_item]):
         error_label.config(text="Please fill in all input fields")
@@ -158,11 +167,11 @@ def submit_data():
     item_entry.delete(0, tk.END)
     num_item_entry.delete(0, tk.END)
 
-
     # Update the display
     update_display()
 
-    messagebox.showinfo('Submitted', 'Your data has successfully submitted.')
+    messagebox.showinfo("Submitted", "Your data has successfully submitted.")
+
 
 # Set Display function
 def update_display():
@@ -354,9 +363,9 @@ error_label = tk.Label(border_frame, text="There are no errors", fg="red")
 error_label.pack(padx=0, pady=0)
 
 
-clicked = name_entry.bind('<Button-1>', clear_name_entry)
-clicked = receipt_entry.bind('<Button-1>', clear_receipt_entry)
-clicked = item_entry.bind('<Button-1>', clear_item_entry)
-clicked = num_item_entry.bind('<Button-1>', clear_num_item_entry)
+clicked = name_entry.bind("<Button-1>", clear_name_entry)
+clicked = receipt_entry.bind("<Button-1>", clear_receipt_entry)
+clicked = item_entry.bind("<Button-1>", clear_item_entry)
+clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
 
 window.mainloop()
