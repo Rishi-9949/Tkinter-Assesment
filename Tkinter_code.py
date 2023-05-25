@@ -163,6 +163,16 @@ def submit_data():
             text=f"Number of items hired must be between {Min_num_of_items} and {Max_num_of_items}"
         )
         return
+    
+   
+    # Check if name or item hired contains a number
+    if any(char.isdigit() for char in name):
+        error_label.config(text="Invalid Information! Name cannot contain numbers.")
+        return
+    
+    if any(char.isdigit() for char in item):
+        error_label.config(text="Invalid Information! Item hired cannot contain numbers.")
+        return
 
     with open("data.json", "r") as file:
         customer_data = json.load(file)
