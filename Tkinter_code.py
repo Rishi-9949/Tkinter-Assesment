@@ -36,14 +36,13 @@ my_rect = tk.Canvas(window, width=800, height=20)
 my_rect.pack()
 
 # Shapping my line and filling it with colour
-rect = my_rect.create_rectangle(800, 0, 0, 20, fill="#004AAD")
+rect = my_rect.create_rectangle(800, 0, 0, 20, fill="green")
 bottom_line = my_rect.create_rectangle(800, 20, 0, 17, fill="#000000")
 
 # Displaying GUI Tittle in the tkinter window 
-Jph = tk.Label(window, text=("Julie’s Party  \n Hire"), bg="#FAF4EF", font=("Garamond", 20))
-
+Jph = tk.Label(window, text=("Julie’s Party Hire"),bg="#FFF1DC", font=("Garamond 40 "))
 # Locating the title in the window 
-Jph.place(x=570, y=120)
+Jph.place(x=200, y=35)
 
 #                            <----Labels and Entry Boxes---->
 name_label = tk.Label(window, text="Full Name:", background="#FFD18B") # Name Label
@@ -70,6 +69,31 @@ num_item_label.pack(anchor="w") # Location for Number of items Hired
 num_item_entry = tk.Entry(window, border=1, relief="solid", fg="#929090") # Number of items Hired Entry Box
 num_item_entry.pack(anchor="w") # Location for Number of items Hired Entry Box
 
+#                      <-------Treeview Box -------->
+# Create the Treeview with striped lines
+trv = ttk.Treeview(window, columns=(1, 2, 3, 4, 5), show="headings", height=50, style="mystyle.Treeview")
+trv.pack(anchor="w", ipadx=400)
+
+# Configure style for striped lines
+style = ttk.Style()
+style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=("Calibri", 10))
+style.configure("mystyle.Treeview.Heading", font=("Calibri", 10, "bold"))
+
+trv.tag_configure('odd', background='white')
+trv.tag_configure('even', background='light blue')
+
+# Input text in the heading
+trv.heading(1, text="ID", anchor="center")  # Treeview Heading of ID
+trv.heading(2, text="Full Name", anchor="center")  # Treeview Heading of Full Name
+trv.heading(3, text="Receipt Number", anchor="center")  # Treeview Heading of Receipt Number
+trv.heading(4, text="Item Hired", anchor="center")  # Treeview Heading of Item Hired
+trv.heading(5, text="Number of Items Hired", anchor="center")  # Treeview Heading of Number of Items Hired
+
+trv.column("#1", anchor="w", width=40, stretch=True)  # Labeling Treeview Heading in a column for ID
+trv.column("#2", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Name
+trv.column("#3", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Receipt Number
+trv.column("#4", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Item Hired
+trv.column("#5", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Number of items hired
 
 #                <--------Inserting Temporary Text in Entry Boxes------>
 name_entry.insert(0, "eg : David") # Inserting eg : David in name Entry Box
@@ -205,6 +229,51 @@ def update_display():
     trv.delete(*trv.get_children())  # Clear the Treeview
 
     for i in range(len(data["Full Name:"])):
+        if i % 2 == 0:
+            trv.insert(
+                "",
+                "end",
+                values=(
+                    i + 1,
+                    data["Full Name:"][i],
+                    data["Receipt Number:"][i],
+                    data["Item hired:"][i],
+                    data["Number of Items Hired:"][i],),
+                tags=("even",)
+            )
+        else:
+            trv.insert(
+                "",
+                "end",
+                values=(
+                    i + 1,
+                    data["Full Name:"][i],
+                    data["Receipt Number:"][i],
+                    data["Item hired:"][i],
+                    data["Number of Items Hired:"][i],
+                ),
+                tags=("odd",)
+            )
+
+# Read the Data.json file which helps display the previously saved data
+with open("data.json", "r") as file:
+    data = json.load(file)
+
+# Add data to the Treeview
+for i in range(len(data["Full Name:"])):
+    if i % 2 == 0:
+        trv.insert(
+            "",
+            "end",
+            values=(
+                i + 1,
+                data["Full Name:"][i],
+                data["Receipt Number:"][i],
+                data["Item hired:"][i],
+                data["Number of Items Hired:"][i],),
+            tags=("even",)
+        )
+    else:
         trv.insert(
             "",
             "end",
@@ -215,8 +284,11 @@ def update_display():
                 data["Item hired:"][i],
                 data["Number of Items Hired:"][i],
             ),
+            tags=("odd",)
         )
 
+# Call update_display() to update the Treeview with data
+update_display()
 
 def update_data():
     selected_item = trv.focus()
@@ -299,43 +371,6 @@ clicked = item_entry.bind("<Button-1>", clear_item_entry)
 clicked = num_item_entry.bind("<Button-1>", clear_num_item_entry)
 
 
-#                      <-------Treeview Box -------->
-# List Heading
-trv = ttk.Treeview(window, columns=(1, 2, 3, 4, 5), show="headings", height=50)
-trv.pack(anchor="w", ipadx=400)
-
-# Input text in the heading
-trv.heading(1, text="ID", anchor="center") # Treeview Heading of ID
-trv.heading(2, text="Full Name", anchor="center") # Treeview Heading of Full Name
-trv.heading(3, text="Receipt Number", anchor="center") # Treeview Heading of Receipt Number
-trv.heading(4, text="Item Hired", anchor="center") # Treeview Heading of Item Hired
-trv.heading(5, text="Number of Items Hired", anchor="center") # Treeview Heading of Number of Items Hired
-
-trv.column("#1", anchor="w", width=40, stretch=True) # Labeling Treeview Heading in a column for ID
-trv.column("#2", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Name  
-trv.column("#3", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Receipt Number
-trv.column("#4", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Item Hired
-trv.column("#5", anchor="w", width=150, stretch=False) # Labeling Treeview Heading in a column for Number of items hired 
-
-# Reading the Data.json file which helps displaying the previous saved data
-with open("data.json", "r") as file:
-    data = json.load(file)
-
-trv.delete(*trv.get_children())  # Clear the Treeview
-
-for i in range(len(data["Full Name:"])):
-    trv.insert(
-        "",
-        "end",
-        values=(
-            i + 1,
-            data["Full Name:"][i],
-            data["Receipt Number:"][i],
-            data["Item hired:"][i],
-            data["Number of Items Hired:"][i],
-        ),
-    )
-
 
 #                                <---Buttons--->
 # Submit
@@ -348,25 +383,25 @@ update_button.place(x=250, y=158)
 
 # Delete
 delete_button = tk.Button(window, text="Delete Row", bg="orange", command=delete_row)
-delete_button.place(x=630, y=350)
+delete_button.place(x=340, y=158)
 
 # Exit Program
 exit_button = tk.Button(window, text="Exit Program", bg="red", command=Exit)
-exit_button.place(x=630, y=400)
+exit_button.place(x=450, y=158)
 
 #                              <------Image------>
 # Adding my Logo Image in my tkinter GUI
-img = Image.open("Logo.jpg")
+img = Image.open("Logo.png")
 img = img.resize((100, 100))
 
 # Create ImageTk objects
 img_tk = ImageTk.PhotoImage(img)
 
 # Create Label widget
-img_label = tk.Label(window, image=img_tk)
+img_label = tk.Label(window, image=img_tk, bg="#FFF1DC")
 
 # Place the Label widgets
-img_label.place(x=595, y=23)
+img_label.place(x=575, y=65)
 
 
 # Create a Frame for border in the image 
