@@ -1,9 +1,9 @@
  # Importing All Neccecary Libraries
-import tkinter as tk
-from PIL import ImageTk, Image
-from tkinter import ttk
-from tkinter import messagebox
-import json
+import tkinter as tk # Importing text as tk
+from PIL import ImageTk, Image # Image Libraries
+from tkinter import ttk # Importing text as ttk
+from tkinter import messagebox # Adding a message box 
+import json # Saving data in json file
 
 # Naming my window as tk
 window = tk.Tk()
@@ -36,7 +36,7 @@ my_rect = tk.Canvas(window, width=800, height=20)
 my_rect.pack()
 
 # Shapping my line and filling it with colour
-rect = my_rect.create_rectangle(800, 0, 0, 20, fill="green")
+rect = my_rect.create_rectangle(800, 0, 0, 20, fill="dark blue")
 bottom_line = my_rect.create_rectangle(800, 20, 0, 17, fill="#000000")
 
 # Displaying GUI Tittle in the tkinter window 
@@ -79,8 +79,8 @@ style = ttk.Style()
 style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=("Calibri", 10))
 style.configure("mystyle.Treeview.Heading", font=("Calibri", 10, "bold"))
 
-trv.tag_configure('odd', background='white')
-trv.tag_configure('even', background='light blue')
+trv.tag_configure('odd', background='white') # if the row number is odd color white 
+trv.tag_configure('even', background='light blue')  # if the row number is even color blue 
 
 # Input text in the heading
 trv.heading(1, text="ID", anchor="center")  # Treeview Heading of ID
@@ -107,31 +107,31 @@ num_item_entry.insert(0, "eg : 35") # Inserting eg : 35 in number of items hired
 
 # Clearing name entry box
 def clear_name_entry(event):
-    if name_entry.get().strip() == "eg : David":
+    if name_entry.get().strip() == "eg : David": # Temporary Text
         name_entry.delete(0, tk.END) # Empting everything in the Name Entry Box 
-        name_entry.configure(fg="black")
-        name_entry.bind("<Button-1>", clear_name_entry)
+        name_entry.configure(fg="black") # Coverting text to black
+        name_entry.bind("<Button-1>", clear_name_entry)  # When clicked command
 
 # Clearing Receipt Number entry box
 def clear_receipt_entry(event):
-    if receipt_entry.get().strip() == "eg : 1882839":
+    if receipt_entry.get().strip() == "eg : 1882839": # Temporary text
         receipt_entry.delete(0, tk.END) # Empting everything in the Receipt Entry Box 
-        receipt_entry.configure(fg="black")
-        receipt_entry.bind("<Button-1>", clear_receipt_entry)
+        receipt_entry.configure(fg="black")# Coverting text to black
+        receipt_entry.bind("<Button-1>", clear_receipt_entry) # When clicked command
 
 # Clearing Items Hired entry box
 def clear_item_entry(event):
-    if item_entry.get().strip() == "eg : Plates":
+    if item_entry.get().strip() == "eg : Plates": # Temporary text
         item_entry.delete(0, tk.END) # Empting everything in the Items Hired Entry Box 
-        item_entry.configure(fg="black")
-        item_entry.bind("<Button-1>", clear_item_entry)
+        item_entry.configure(fg="black") # Coverting text to black
+        item_entry.bind("<Button-1>", clear_item_entry) # When clicked command
 
 # Clearing Number of items hired entry box
 def clear_num_item_entry(event):
-    if num_item_entry.get().strip() == "eg : 35":
+    if num_item_entry.get().strip() == "eg : 35": # temporary text
         num_item_entry.delete(0, tk.END) # Empting everything in the Number of items hired Entry Box 
-        num_item_entry.configure(fg="black")
-        num_item_entry.bind("<Button-1>", clear_num_item_entry)
+        num_item_entry.configure(fg="black") # Coverting text to black
+        num_item_entry.bind("<Button-1>", clear_num_item_entry) # When clicked command
 
 # Message Box/function for Exiting the application
 def Exit():
@@ -140,8 +140,8 @@ def Exit():
         "Are you sure you want to exit the application?",
         icon="warning",
     )
-    if warning == "yes":
-        window.destroy()
+    if warning == "yes": # of the user clicked 
+        window.destroy() # Exits the program 
 
 # Set of comands when Submit Button is pressed
 def submit_data():
