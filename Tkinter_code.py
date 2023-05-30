@@ -85,7 +85,7 @@ trv.tag_configure('even', background='light blue')  # if the row number is even 
 # Input text in the heading
 trv.heading(1, text="ID", anchor="center")  # Treeview Heading of ID
 trv.heading(2, text="Full Name", anchor="center")  # Treeview Heading of Full Name
-trv.heading(3, text="Receipt Number", anchor="center")  # Treeview Heading of Receipt Number
+trv.heading(3, text="Receipt Number", anchor="center")  # Treeview Heading of Receipt Number2
 trv.heading(4, text="Item Hired", anchor="center")  # Treeview Heading of Item Hired
 trv.heading(5, text="Number of Items Hired", anchor="center")  # Treeview Heading of Number of Items Hired
 
@@ -96,7 +96,7 @@ trv.column("#4", anchor="w", width=150, stretch=False)  # Labeling Treeview Head
 trv.column("#5", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Number of items hired
 
 #                <--------Inserting Temporary Text in Entry Boxes------>
-name_entry.insert(0, "eg : David") # Inserting eg : David in name Entry Box
+name_entry.insert(0, "eg : David Watson") # Inserting eg : David Watson in name Entry Box
 receipt_entry.insert(0, "eg : 1882839") # Inserting eg : 1882839 in receipt Entry Box
 item_entry.insert(0, "eg : Plates") # Inserting eg : Plates in items Entry Box
 num_item_entry.insert(0, "eg : 35") # Inserting eg : 35 in number of items hired Entry Box
@@ -107,7 +107,7 @@ num_item_entry.insert(0, "eg : 35") # Inserting eg : 35 in number of items hired
 
 # Clearing name entry box
 def clear_name_entry(event):
-    if name_entry.get().strip() == "eg : David": # Temporary Text
+    if name_entry.get().strip() == "eg : David Watson": # Temporary Text
         name_entry.delete(0, tk.END) # Empting everything in the Name Entry Box 
         name_entry.configure(fg="black") # Coverting text to black
         name_entry.bind("<Button-1>", clear_name_entry)  # When clicked command
@@ -154,7 +154,7 @@ def submit_data():
     num_item = num_item_entry.get().strip()
 
     # Check if any input fields are same as their temporary text
-    if name_entry.get() == "eg : David":
+    if name_entry.get() == "eg : David Watson":
         error_label.config(text="Please fill in all input field")
         return
     elif receipt_entry.get() == "eg : 1882839":
@@ -287,6 +287,9 @@ for i in range(len(data["Full Name:"])):
             tags=("odd",)
         )
 
+
+
+
 # Call update_display() to update the Treeview with data
 update_display()
 
@@ -326,6 +329,11 @@ def update_data():
 
     # Delete the selected item from the Treeview
     trv.delete(selected_item)
+
+    name_entry.configure(fg="black") # Coverting text to black
+    receipt_entry.configure(fg="black") # Coverting text to black
+    item_entry.configure(fg="black") # Coverting text to black
+    num_item_entry.configure(fg="black") # Coverting text to black
 
 
 def delete_row():
