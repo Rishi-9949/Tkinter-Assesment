@@ -89,7 +89,7 @@ trv.heading(3, text="Receipt Number", anchor="center")  # Treeview Heading of Re
 trv.heading(4, text="Item Hired", anchor="center")  # Treeview Heading of Item Hired
 trv.heading(5, text="Number of Items Hired", anchor="center")  # Treeview Heading of Number of Items Hired
 
-trv.column("#1", anchor="w", width=40, stretch=True)  # Labeling Treeview Heading in a column for ID
+trv.column("#1", anchor="w", width=40, stretch=False)  # Labeling Treeview Heading in a column for ID
 trv.column("#2", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Name
 trv.column("#3", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Receipt Number
 trv.column("#4", anchor="w", width=150, stretch=False)  # Labeling Treeview Heading in a column for Item Hired
@@ -344,7 +344,7 @@ def delete_row():
         return
 
     warning = messagebox.askquestion(
-        "Delete Rowe",
+        "Delete Row",
         "Are you sure you want to delete this row? \n"
         "(Once Deleted you won't be able to restore it)",
         icon="warning",
